@@ -2,24 +2,30 @@
 
 
 class Program{
-    public class ExtendedOperation
-    {
-        public string Operation;
-        public int Priority;
-    }
-    public static readonly string[] numberSeparators = new string[] {" ", "+", "-", "/", "*", "(", ")"};
-    public static readonly string[] operationSeparators = new string[] {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-    
-    static List<string> Separate(string expression, string[] Separator)
+    static public List<string> Separate(string input)
     {
         List<string> result = new List<string>();
         
-        foreach(string elem in expression.Split(Separator, StringSplitOptions.RemoveEmptyEntries))
+        foreach(string elem in input.Split(" ", StringSplitOptions.RemoveEmptyEntries))
         {
             result.Add(elem);
         }
         
         return result;
+    }
+    static public List<string> toRPN(string input)
+    {
+        List<string> res = new List<string>();
+        Stack<string> st = new Stack<string>();
+        List<string> separatedInput = Separate(input);
+
+        for(int i = 0; i < separatedInput.Count; i++)
+        {
+            if (separatedInput[i] == "1"){
+                Console.WriteLine(1);
+            }
+        }
+        return res;
     }
     
     static void Main()
