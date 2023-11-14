@@ -5,10 +5,31 @@ class Program{
     static public List<string> Separate(string input)
     {
         List<string> result = new List<string>();
-        
-        foreach(string elem in input.Split(" ", StringSplitOptions.RemoveEmptyEntries))
+        string number = "";
+
+        foreach(char elem in input)
         {
-            result.Add(elem);
+            if (char.IsNumber(elem))
+            {
+                number += elem;
+            }
+            else
+            {
+                if (number != "")
+                {
+                    result.Add(number);
+                    number = "";
+                }
+                if (elem != ' ')
+                {
+                    result.Add(elem.ToString());
+                }
+            }
+        }
+        if (number != "")
+        {
+            result.Add(number);
+            number = "";
         }
         
         return result;
@@ -21,16 +42,16 @@ class Program{
 
         for(int i = 0; i < separatedInput.Count; i++)
         {
-            if (separatedInput[i] == "1"){
-                Console.WriteLine(1);
-            }
+            
+            Console.WriteLine(separatedInput[i]);
+            
         }
         return res;
     }
     
     static void Main()
     {
-        
+        toRPN(Console.ReadLine());
     }
 
 
