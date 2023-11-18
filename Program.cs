@@ -74,6 +74,19 @@ class Program{
                         }
                     }
                 }
+                if (elem == "(")
+                {
+                    stack.Push(elem);
+                }
+                if (elem == ")")
+                {
+                    string cursor = stack.Pop();
+                    while (cursor != "(")
+                    {
+                        result.Add(cursor);
+                        cursor = stack.Pop();
+                    }
+                }
             }
         }
         while(stack.Count != 0) result.Add(stack.Pop());
@@ -82,7 +95,7 @@ class Program{
     
     static void Main()
     {
-        Console.WriteLine(string.Join(" ", toRPN("Console.ReadLine()")));
+        
     }
 
 
