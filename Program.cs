@@ -41,11 +41,11 @@ class Program{
         
         return result;
     }
-    static public List<string> toRPN(string input)
+    
+    static public List<string> toRPN(List<string> separatedInput)
     {
         List<string> result = new List<string>();
         Stack<string> stack = new Stack<string>();
-        List<string> separatedInput = Separate(input);
         double number;
         foreach(string elem in separatedInput)
         {
@@ -92,10 +92,42 @@ class Program{
         while(stack.Count != 0) result.Add(stack.Pop());
         return result;
     }
-    
+
+    static double Calculate(string operation, double num1, double num2)
+    {
+        switch(operation)
+        {
+            case "+": return num1 + num2;
+            case "-": return num1 - num2;
+            case "*": return num1 * num2;
+            case "/": return num1 / num2;
+        }
+        throw new Exception("Error");
+    }
+
+    static public double CalculateRPN(List<string> expression)
+    {   
+        Stack<double> stack = new Stack<double>();
+        double number;
+        foreach (string elem in expression)
+        {
+            if (Double.TryParse(elem, out number))
+            {
+                stack.Push(number);
+            }
+            else
+            {
+                double num2 = stack.Pop();
+                double num1 = stack.Pop();
+                stack.Push(Calculate(elem, num1, num2));
+            }
+        }
+        return stack.Pop();
+    }
+
     static void Main()
     {
-        
+        Console.WriteLine(CalculateRPN(toRPN(Separate("3 - 4+ 32 * 3 - 4 * (3 /4)"))));
     }
 
 
